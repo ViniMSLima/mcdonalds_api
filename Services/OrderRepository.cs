@@ -82,11 +82,6 @@ public class OrderRepository : IOrderRepository
 
     }
 
-    public Task CancelOrder(string orderId)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task<List<Product>> GetMenu(int orderId)
     {
         throw new NotImplementedException();
@@ -97,19 +92,34 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
-    public Task AddItem(int productId)
+    public async Task RemoveItem(int orderId, int productId)
     {
-        throw new NotImplementedException();
+        var currentOrder = await GetOrder(orderId);
+
+        if(currentOrder is null)
+            throw new Exception("Order don't exist!");
+
+        var products =
+            from product in currentOrder.ClientOrderItems
+            where product.Id == productId
+            select product;
+
+        if(products is null)
+            throw new Exception("product is not in ClientOrder!");
+
+       ctx.Remove(products.FirstOrDefault());
+       await ctx.SaveChangesAsync();
+
     }
 
-    public Task RemoveItem(int orderId, int productId)
+    public async Task FinishOrder(int orderId)
     {
-        throw new NotImplementedException();
-    }
+        var currentOrder = await GetOrder(orderId);
 
-    public Task FinishOrder(int orderId)
-    {
-        throw new NotImplementedException();
+        if(currentOrder is null)
+            throw new Exception("Order don't exist!");
+
+        currentOrder.FinishMoment = DateTime.Now;
     }
 
     public Task DeliveryOrder(int orderId)
@@ -126,4 +136,6 @@ public class OrderRepository : IOrderRepository
     {
         throw new NotImplementedException();
     }
+
+
 }

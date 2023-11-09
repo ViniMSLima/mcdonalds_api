@@ -9,6 +9,8 @@ using McDonaldsAPI.Model;
 
 namespace McDonaldsAPI.Services;
 
+//REPOSITORIO PARA TESTES
+
 public class FakeOrderRepository : IOrderRepository
 {
     int orderId = 42;
@@ -17,7 +19,12 @@ public class FakeOrderRepository : IOrderRepository
         throw new System.NotImplementedException();
     }
 
-    public Task CancelOrder(string orderId)
+    public Task AddItem(int orderId, int productId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task CancelOrder(int orderId)
     {
         throw new System.NotImplementedException();
     }

@@ -13,8 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<McDataBaseContext>();
-builder.Services.AddSingleton<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<McDataBaseContext>(); //Banco de dados sempre Scoped
+builder.Services.AddTransient<IOrderRepository, OrderRepository>(); //Repositorios sempre Transient
+//Quase nunca temos singleton, mas pode ter
 
 var app = builder.Build();
 
