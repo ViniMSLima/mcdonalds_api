@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using mcdonalds_api.Model;
+using McDonaldsAPI.Model;
 namespace McDonaldsAPI.Services;
 
 

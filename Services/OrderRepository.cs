@@ -1,11 +1,11 @@
 using System;
 using System.Data;
 using System.Linq;
-using mcdonalds_api.Model;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
+using McDonaldsAPI.Model;
 
 namespace McDonaldsAPI.Services;
 
@@ -14,7 +14,6 @@ public class OrderRepository : IOrderRepository
     private readonly McDataBaseContext ctx;
     public OrderRepository(McDataBaseContext ctx)
         => this.ctx = ctx;
-
 
     public async Task<ClientOrder> GetOrder(int orderId)
     {
@@ -32,13 +31,14 @@ public class OrderRepository : IOrderRepository
             from store in ctx.Stores
             where store.Id == storeId
             select store;
-        if (selectedStore.Count() == 0)
-            throw new Exception("Store don't exist");
+            
+        if (!selectedStore.Any())
+            throw new Exception("Store don't exist.");
 
         var clientOrder = new ClientOrder();
         clientOrder.StoreId = storeId;
         clientOrder.OrderCode = "abcd1234";
-
+        
         ctx.Add(clientOrder);
         await ctx.SaveChangesAsync();
 
@@ -47,10 +47,12 @@ public class OrderRepository : IOrderRepository
     
     public async Task CancelOrder(int orderId)
     {
-        // if(currentOrder is null)
-        //     throw new Exception("Order don't exist!");
+        var currentOrder = await GetOrder(orderId);
 
-        var currentOrder = await GetOrder(orderId) ?? throw new Exception("Order don't exist!");
+        if(currentOrder is null)
+            throw new Exception("Order don't exist!");
+
+        // var currentOrder = await GetOrder(orderId) ?? throw new Exception("Order don't exist!");
 
         ctx.Remove(currentOrder);
         await ctx.SaveChangesAsync();
@@ -78,15 +80,9 @@ public class OrderRepository : IOrderRepository
         ctx.Add(item);
         await ctx.SaveChangesAsync();
 
-
     }
 
-    public Task DeliveryOrder(int orderId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task FinishOrder(int orderId)
+    public Task CancelOrder(string orderId)
     {
         throw new NotImplementedException();
     }
@@ -101,12 +97,22 @@ public class OrderRepository : IOrderRepository
         throw new NotImplementedException();
     }
 
+    public Task AddItem(int productId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task RemoveItem(int orderId, int productId)
     {
         throw new NotImplementedException();
     }
 
-    public Task CancelOrder(string orderId)
+    public Task FinishOrder(int orderId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeliveryOrder(int orderId)
     {
         throw new NotImplementedException();
     }
@@ -117,11 +123,6 @@ public class OrderRepository : IOrderRepository
     }
 
     Task<List<Product>> IOrderRepository.GetOrderItems(int orderId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task AddItem(int productId)
     {
         throw new NotImplementedException();
     }

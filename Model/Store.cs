@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mcdonalds_api.Model;
+namespace McDonaldsAPI.Model;
 
 public partial class Store
 {
     public int Id { get; set; }
 
-    public string Localization { get; set; } = null!;
+    public string Localization { get; set; }
 
     public virtual ICollection<ClientOrder> ClientOrders { get; set; } = new List<ClientOrder>();
 

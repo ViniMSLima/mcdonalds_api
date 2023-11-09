@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mcdonalds_api.Model;
+namespace McDonaldsAPI.Model;
 
 public partial class Product
 {
     public int Id { get; set; }
 
-    public string ItemName { get; set; } = null!;
+    public string ItemName { get; set; }
 
-    public byte[]? Photo { get; set; }
+    public byte[] Photo { get; set; }
 
-    public string DescriptionText { get; set; } = null!;
+    public string DescriptionText { get; set; }
 
     public virtual ICollection<ClientOrderItem> ClientOrderItems { get; set; } = new List<ClientOrderItem>();
 

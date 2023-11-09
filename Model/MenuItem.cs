@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mcdonalds_api.Model;
+namespace McDonaldsAPI.Model;
 
 public partial class MenuItem
 {
@@ -13,7 +13,7 @@ public partial class MenuItem
 
     public decimal Price { get; set; }
 
-    public virtual Product Product { get; set; } = null!;
+    public virtual Product Product { get; set; }
 
-    public virtual Store Store { get; set; } = null!;
+    public virtual Store Store { get; set; }
 }

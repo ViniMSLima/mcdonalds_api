@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace mcdonalds_api.Model;
+namespace McDonaldsAPI.Model;
 
 public partial class ClientOrderItem
 {
@@ -11,7 +11,7 @@ public partial class ClientOrderItem
 
     public int ProductId { get; set; }
 
-    public virtual ClientOrder ClientOrder { get; set; } = null!;
+    public virtual ClientOrder ClientOrder { get; set; }
 
-    public virtual Product Product { get; set; } = null!;
+    public virtual Product Product { get; set; }
 }
